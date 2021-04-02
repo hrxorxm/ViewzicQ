@@ -1,0 +1,68 @@
+div.container {
+    margin-top: 0;
+}
+
+#services {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+
+h1 {
+    font-size: 25pt
+}
+
+#playScreen {
+    position: relative;
+    overflow: hidden;
+    margin-left: 22%;
+    margin-right: 22%;
+    height: 32rem;
+    margin-bottom: 5%;
+    border: 5px solid white;
+}
+
+div.bottomScreen {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 3;
+    color: white;
+    font-size: 20pt;
+    background-color: black;
+}
+
+div.innerScreen {
+    display: block;
+    position: relative;
+    float: left;
+    height: 100%;
+    width: 60%;
+    text-align: center;
+    z-index: 2;
+}
+
+div.sideScreen {
+    display: block;
+    position: relative;
+    float: left;
+    height: 100%;
+    width: 20%;
+    z-index: 1;
+}
+
+span.innerEmoji {
+    position: absolute;
+    left: 40%;
+    top: 75%;
+    display: block;
+    font-size: 25pt;
+    text-align: center;
+    height: 10%;
+    visibility: visible;
+}
+
+#txt0 {
+    margin-top: 75%;
+    font-size: 22pt;
+}

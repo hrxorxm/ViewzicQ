@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% extends 'base.html' %}
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    {% block content %}
+    <link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/hanna.css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanumpenscript.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'font.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <script type="text/javascript" src="{% static 'js/NewMotionEvent.js' %}" charset="UTF-8"></script>
+    <script type="text/javascript" src="{% static 'js/motion_select.js' %}" charset="UTF-8"></script>
+    <script type="text/javascript" src="{% static 'js/color_select.js' %}" charset="UTF-8"></script>
+    <script type="text/javascript" src="{% static 'js/font.js' %}" charset="UTF-8"></script>
+    <script src="https://kit.fontawesome.com/90ebeea39c.js" crossorigin="anonymous"></script>
+</head>
+
+<body oncontextmenu="return false">
+    <section id="services" class="jumbotron text-center">
+        <div class="container">
+            <h1>{{music.title}} - {{music.singer}}</h1>
+            <audio id="music_play">
+                <source src="{{music.song_file.url}}" type="audio/wav">
+            </audio>
+            <!--
+            <input type="button" value="Start" id="button-start" class="btn btn-outline-secondary" />
+            <input type="button" value="Pause" id="button-pause" class="btn btn-outline-secondary"
+                disabled="disabled" />
+            <input type="button" value="Stop" id="button-stop" class="btn btn-outline-secondary" disabled="disabled" />
+            -->
+        </div>
+    </section>
+
+    <section id='playScreen'>
+        <!--여기에 키네틱을 위한 div 넣기-->
+        <div id="emoji1" class="sideScreen"></div>
+        <div id="lyricMotion" class="innerScreen">
+            <div id='txt0'></div>
+        </div>
+        <div id="emoji2" class="sideScreen"></div>
+        <div id="timeInfo" class="bottomScreen">
+            <button id="button-start" class="btn"><i class="fas fa-play" style='font-size:24px; color:white;'></i></button>
+            <button id="button-pause" class="btn"><i class="fas fa-pause" style='font-size:24px;color:white;' disabled="disabled"></i></button>
+            <button id="button-stop" class="btn"><i class="fas fa-stop" style='font-size:24px;color:white;' disabled="disabled"></i></button>
+            &nbsp;
+            <span id="minutes">00</span>:<span id="seconds">00</span> / <span id="total_minutes">00</span>:<span id="total_seconds">00</span>
+        </div>
+    </section>
+
+    <script type="text/javascript">
+        // 음악 분석 변수
+        let lyric_emotions = JSON.parse('{{ info.lyric_emotions }}'.replaceAll('&#x27;', '"'));
+        let music_emotions = JSON.parse('{{ info.music_emotions }}'.replaceAll('&#x27;', '"'));
+        let features = JSON.parse('{{ info.features }}'.replaceAll('&#x27;', '"'));
+
+        // 구절별 시간, 가사 변수
+        let times = JSON.parse('{{ times | escapejs }}');
+        let lyrics = JSON.parse('{{ lyrics | escapejs }}');
+        var phraseIdx = 0; // 구절 인덱스
+
+        // 시간 변수
+        var minutes = 00;
+        var seconds = 00;
+        var milliseconds = 0;
+        var appendSeconds = document.getElementById("seconds");
+        var appendMinutes = document.getElementById("minutes");
+
+        // 버튼 변수
+        var buttonStart = document.getElementById('button-start');
+        var buttonPause = document.getElementById('button-pause');
+        var buttonStop = document.getElementById('button-stop');
+        var Interval;
+
+        //정지된 시점
+        var current = 0;
+
+        let screen = document.getElementById('playScreen');
+        let timeInfo = document.getElementById('timeInfo');
+        let lyricMotion = document.getElementById('lyricMotion');
+        let lyricDiv = document.getElementById("txt0");
+        let audio = document.getElementById('music_play');
+        var emoji1 = document.getElementById("emoji1");
+        var emoji2 = document.getElementById("emoji2");
+
+        // 배경 기본값
+        lyricMotion.style.backgroundImage = 'url("{{music.image_file.url}}")';
+        screen.style.border = "5px solid " + "#000000";
+        screen.onmouseover = function (){
+            timeInfo.style.display = 'block';
+        }
+        screen.onmouseout = function (){
+            timeInfo.style.display = 'none';
+        }
+
+        // 총 재생 시간
+        let total_duration = parseFloat("{{info.length}}");
+        let total_minutes = parseInt(total_duration / 60);
+        let total_seconds = parseInt(total_duration % 60);
+        total_minutes = total_minutes > 9 ? total_minutes : "0" + total_minutes;
+        total_seconds = total_seconds > 9 ? total_seconds : "0" + total_seconds;
+        document.getElementById("total_minutes").innerText = total_minutes;
+        document.getElementById("total_seconds").innerText = total_seconds;
+
+
+        function noEvent() {
+            if (event.keyCode == 116) {
+                event.keyCode = 2;
+                return false;
+            } else if (event.ctrlKey && (event.keyCode == 78 || event.keyCode == 82)) {
+                return false;
+            }
+        }
+        document.onkeydown = noEvent;
+
+        //기본 폰트 설정
+        var tmpEmotion = lyric_emotions[0]["emotion"];
+        //lyricDiv.style.fontSize = 17 + 'pt';
+        //selectFont(tmpEmotion);
+
+        buttonStart.onclick = function () {
+            buttonStart.disabled = 'disabled'; // 비활성화
+            buttonPause.disabled = false; // 활성화
+            buttonStop.disabled = false;
+
+            clearInterval(Interval); // 실행중인 작업을 중지하는 게 아니라 주어진 작업을 모두 끝낸 후 다음 작업을 중지시키는 함수
+            Interval = setInterval(startTimer, 1000); // 1초 간격으로 startTimer() 함수를 호출
+
+            //screen.style.display = 'block';
+            lyricMotion.style.display = 'block';
+            emoji1.style.display = 'block';
+            emoji2.style.display = 'block';
+
+            if (audio.paused) {
+                if (phraseIdx == 0) {
+                    tmpEmotion = lyric_emotions[0]["emotion"];
+                    selectFont(tmpEmotion);
+                    audio.currentTime = 0;
+                    js_to_css(lyrics, lyric_emotions, features, times, 0);
+                } else {
+                    var pauseTime = minutes * 60 + seconds + 0.5;
+                    js_to_css(lyrics, lyric_emotions, features, times, pauseTime * 1000);
+                    //pause_js_to_css(phraseIdx, pauseTime, lyrics, lyric_emotions, features, times)
+                }
+                audio.play();
+            }
+        }
+
+        buttonPause.onclick = function () {
+            clearInterval(Interval);
+            if (!audio.paused) {
+                all_pause();
+                audio.pause();
+            }
+            // 버튼제어
+            buttonStart.disabled = false; // 활성화
+            buttonPause.disabled = 'disabled'; // 비활성화
+            buttonStop.disabled = false;
+        }
+
+        buttonStop.onclick = function () {
+            clearInterval(Interval);
+            if (!audio.paused) {
+                all_stop();
+                audio.pause();
+            }
+            phraseIdx = 0;
+            seconds = 0;
+            minutes = 0;
+            appendSeconds.innerHTML = "00";
+            appendMinutes.innerHTML = "00";
+
+            buttonStart.disabled = false; // 활성화
+            buttonPause.disabled = 'disabled'; // 비활성화
+            buttonStop.disabled = 'disabled';
+
+            //screen.style.display = 'none';
+            lyricDiv.style.left='initial';
+            lyricMotion.style.display = 'none';
+            emoji1.style.display = 'none';
+            emoji2.style.display = 'none';
+            //lyricMotion.style.backgroundImage= 'url("{{music.image_file.url}}")'
+            //lyricMotion.innerHTML="<div id='lyric'><div id='txt0'> {{music.title}} by {{music.singer}}</div></div>";
+            lyricMotion.innerHTML="<div id='txt0'></div>";
+        }
+
+        function startTimer() {
+            seconds++;
+            if (seconds > 60) {
+                // sec가 꽉 찰 경우 minutes로 값을 넘겨줌
+                minutes++;
+                appendMinutes.innerHTML = "0" + minutes;
+                seconds = 0;
+                appendSeconds.innerHTML = "0" + 0;
+            } else if (seconds > 9) {
+                // seconds가 9 이상이면 앞에 "0" 붙이지 않음
+                appendSeconds.innerHTML = seconds;
+            } else {
+                appendSeconds.innerHTML = "0" + seconds;
+            }
+
+            if (minutes > 9) {
+                // minutes가 9 이상이면 앞에 "0" 붙이지 않음
+                appendMinutes.innerHTML = minutes;
+            }
+
+            // 시간에 따라 구절 바꾸기
+            if (minutes * 60.0 + seconds * 1.0 >= times[phraseIdx]) {
+                let lyricDiv = document.getElementById("txt0");
+                changePhrase(lyricDiv, phraseIdx);
+                phraseIdx++;
+            }
+        }
+
+        function changePhrase(lyricDiv, index) {
+            var emotionNow = lyric_emotions[index]["emotion"];
+            var classSelector = lyricDiv.getAttribute('class');
+
+            // 구절 바꾸기
+            if ((positive.includes(tmpEmotion) && !(positive.includes(emotionNow))) || (negative.includes(tmpEmotion) && !(negative.includes(emotionNow)))) {
+                classSelector = (lyricDiv.getAttribute('class')).split(' ', 1) + " " + emotionNow;
+                lyricDiv.className = classSelector;
+                tmpEmotion = emotionNow;
+            }
+            lyricDiv.innerText = lyrics[index];
+
+            // 색깔 바꾸기
+            var selectedColor = emotion_to_color(music_emotions[index]);
+            //screen.style.border = "5px solid " + selectedColor;
+            //screen.style.backgroundColor = selectedColor;
+            //lyricDiv.style.color = selectedColor;
+            emoji1.style.backgroundColor = selectedColor;
+            emoji2.style.backgroundColor = selectedColor;
+
+            // 이모지 바꾸기
+            var selectedEmojis = emotion_to_emoji(music_emotions[index]);
+            if (music_emotions[index]['value'] >= 0.3 && selectedEmojis != null) {
+                var selectedEmoji1 = selectedEmojis[0];
+                var selectedEmoji2 = selectedEmojis[1];
+                emoji1.innerHTML = '<span class="innerEmoji">' + selectedEmoji1 + '</span>';
+                emoji2.innerHTML = '<span class="innerEmoji">' + selectedEmoji2 + '</span>';
+            }
+            else{
+                emoji1.innerHTML = "";
+                emoji2.innerHTML = "";
+            }
+
+            lyricDiv.style.left = "initial";
+        }
+    </script>
+
+    {% endblock %}
+</body>
+
+</html>

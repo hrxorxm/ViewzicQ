@@ -1,0 +1,270 @@
+/*고딕*/
+@font-face {
+    font-family: 'GmarketSansBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MaplestoryOTFBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Dangdanghae';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.2/Cafe24Dangdanghae.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: '62570%uCCB4';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.3/62570체.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MapoDPPA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoDPPA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+font-family: 'MyLotteBold';
+src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.0/MyLotteBold.woff') format('woff');
+font-weight: normal;
+font-style: normal;
+}
+
+@font-face {
+ font-family: 'TTSeokbosangjeolR';
+src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_ten@1.2/TTSeokbosangjeolR.woff') format('woff');
+font-weight: normal; font-style: normal; }
+
+/*명조*/
+@font-face {
+    font-family: 'Chosunilbo_myungjo';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GyeonggiBatang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiBatang.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: '%uAD6D%uB9BD%uBC15%uBB3C%uAD00%uBB38%uD654%uC7AC%uB2E8%uD074%uB798%uC2DDB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/%uAD6D%uB9BD%uBC15%uBB3C%uAD00%uBB38%uD654%uC7AC%uB2E8%uD074%uB798%uC2DDB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ghanachoco';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ghanachoco.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ELAND_Nice_M';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Nice_M.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SunBatang-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/SunBatang-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MapoAgape';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoAgapeA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HSBombaram3_Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.1/HSBombaram3_Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*손글씨*/
+@font-face {
+    font-family: 'BMEULJIRO';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/BMEULJIRO.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SangSangRock';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/SangSangRockOTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'JSArirangHON-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/JSArirangHON-RegularA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MapoMaponaru';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoMaponaruA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'KyoboHand';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Bazzi';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TDTDTadakTadak';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/TDTDTadakTadak.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MapoBackpacking';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoBackpackingA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/*손글씨2*/
+@font-face {
+     font-family: 'UhBeeDongKyung';
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeDongKyung.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+ }
+
+@font-face {
+     font-family: 'UhBeeDongKyung';
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeDongKyung.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+}
+
+@font-face {
+    font-family: 'UhBeeRice';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeRice.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'UhBeeSunhong';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeSunhong.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'UhBeeHYUNJUNG';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeHYUNJUNG.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'UhBeeMiMi';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeMiMi.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'UhBeecharming';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeecharming.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+font-family: 'UhBeeJjipungding';
+src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeJjipungding.woff') format('woff');
+font-weight: normal;
+font-style: normal;
+}
+
+.gothic{}
+.myeongjo{}
+.son1{}
+.son2{}
+
+.gothic.pleasure{font-family: 'MaplestoryOTFBold';}
+.gothic.hope{font-family: 'yg-jalnan';font-size:23pt;}
+.gothic.trust{font-family: 'GmarketSansBold';font-size:24pt;}
+.gothic.surprise{font-family: 'Cafe24Dangdanghae';font-size:26pt;}
+.gothic.fear{font-family: 'MyLotteBold';}
+.gothic.aversion{font-family: '62570체';font-size:24pt; }
+.gothic.anger{font-family: 'TTSeokbosangjeolR'; font-size:24pt;}
+.gothic.sadness{font-family: 'MapoDPPA';}
+
+
+.myeongjo.pleasure{font-family: 'ghanachoco'; font-size:24pt;}
+.myeongjo.hope{font-family: 'GyeonggiBatang';}
+.myeongjo.trust{font-family: 'Chosunilbo_myungjo';}
+.myeongjo.surprise{font-family: 'ELAND_Nice_M';}
+.myeongjo.fear{ font-family: 'HSBombaram3_Regular';}
+.myeongjo.aversion{font-family: '국립박물관문화재단클래식B';font-size:23pt;}
+.myeongjo.anger{font-family: 'MapoAgape';font-size:24pt;}
+.myeongjo.sadness{font-family: 'SunBatang-Bold';font-size:23pt;}
+
+
+.son1.pleasure{font-family: 'Bazzi';font-size:31pt;}
+.son1.hope{font-family: 'KyoboHand';font-size:30pt;}
+.son1.trust{font-family: 'TDTDTadakTadak';font-size:30pt;}
+.son1.surprise{font-family: 'MapoBackpacking';font-size:28pt;}
+.son1.fear{font-family: 'BMEULJIRO';font-size:23pt;}
+.son1.aversion{font-family: 'MapoMaponaru';font-size:28pt;}
+.son1.anger{font-family: 'SangSangRock';font-size:28pt;}
+.son1.sadness{font-family: 'JSArirangHON-Regular';font-size:28pt;}
+
+
+.son2.pleasure{font-family: 'UhBeeJjipungding';font-size:23pt;}
+.son2.hope{font-family: 'UhBeecharming';}
+.son2.trust{font-family: 'UhBeeMiMi';font-size:34pt;}
+.son2.surprise{font-family: 'UhBeeHYUNJUNG';}
+.son2.fear{font-family: 'UhBeeDongKyung';font-size:29pt;}
+.son2.aversion{font-family: 'UhBeeDongKyung';font-size:26pt;}
+.son2.anger{font-family: 'UhBeeRice';}
+.son2.sadness{font-family: 'UhBeeSunhong';font-size:40pt;}

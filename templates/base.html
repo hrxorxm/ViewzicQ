@@ -1,0 +1,44 @@
+<!--모든 화면에서 공통 부분-->
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd"> {% load static %}
+<!--static 파일 사용-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <link href="{% static 'album.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <title>ViewzicQ</title>
+</head>
+
+<body>
+    <header>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container d-flex justify-content-between">
+                <!--viewzicQ의 urls에서 네임이 home인 path접근-->
+                <a href="{% url 'viewzicQ:home' %}" class="navbar-brand d-flex align-items-center">
+                    <svg width="20" height="20" viewBox="0 0 16 16" class="bi bi-music-note-beamed" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 13c0 1.105-1.12 2-2.5 2S1 14.105 1 13c0-1.104 1.12-2 2.5-2s2.5.896 2.5 2zm9-2c0 1.105-1.12 2-2.5 2s-2.5-.895-2.5-2 1.12-2 2.5-2 2.5.895 2.5 2z"/>
+                        <path fill-rule="evenodd" d="M14 11V2h1v9h-1zM6 3v10H5V3h1z"/>
+                        <path d="M5 2.905a1 1 0 0 1 .9-.995l8-.8a1 1 0 0 1 1.1.995V3L5 4V2.905z"/>
+                    </svg>
+                    <strong style="margin-left:10px">ViewzicQ</strong>
+                </a>
+                {% if user.is_authenticated %}
+                <a class="nav-link" href="{% url 'viewzicQ:logout' %}">{{ user.username }} (로그아웃)</a> {% else %}
+                <!-- ----------------------------------------------------------------------- 
+                <a class="nav-link" href="{% url 'viewzicQ:login' %}">로그인</a>
+                ------------------------------- [edit] -------------------------------- -->
+                {% endif %}
+            </div>
+        </div>
+    </header>
+    <!--상속해서 채워질 부분-->
+    {% block content %} {% endblock %}
+</body>
+
+</html>

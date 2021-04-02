@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        <!--템플릿 상속-->
+        {% extends 'base.html' %}
+   </head>
+    <body oncontextmenu="return false">
+    {% block content %}
+        <style scoped>
+            .conatiner{
+                margin-left: 30%;
+                margin-right: 30%;
+                background: rgb(255, 254, 254);
+            }
+            .prog{
+                background: rgb(243, 244, 247);
+            }
+            .progs{
+                width: 1%;
+                height: 50px;
+                background: rgb(3, 126, 243);
+                color:#fff;
+                text-align: center;
+                line-height: 50px;
+            }
+        </style>
+        <main role="main">
+            <section class="jumbotron text-center" style="padding-bottom:4rem;padding-top:4rem">
+                <div class="container">
+                    <h1>ViewZic Q</h1>
+                    <p class="lead text-muted">음악 감정 분석을 통한 키네틱 타이포그래피 자동 생성 프로그램</p>
+
+                    <form action="{% url 'viewzicQ:uploadFile' %}" method="post" id="music_form" onsubmit="music_submit();" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                    <!--원하는 파일 형식만 받게-->
+                        <!--
+                        <div class="row" >
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" name="upload_title" id="title" placeholder="music title" required/>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" name="upload_singer" id="singer" placeholder="singer" required/>
+                            </div>
+                        </div>
+                        -->
+                        <div class="custom-file" aria-required="true">
+                            <input type="file" accept=".wav,.mp3" required class="custom-file-input" name="upload_music" id="id_music_file" aria-describedby="inputGroupFileAddon01">
+                            <label class="custom-file-label" for="id_music_file">Choose a Music file(mp3, wav)</label>
+                        </div>
+                        <div class="custom-file" aria-required="true" style="margin-top:1rem" >
+                            <input type="file" accept=".lrc" required class="custom-file-input" name="upload_lyric" id="id_lyric_file" aria-describedby="inputGroupFileAddon01">
+                            <label class="custom-file-label" for="id_lyric_file">Choose a lyric file(lrc)</label>
+                        </div>
+
+                <!--파일 선택하면 이름 바꾸는 이벤트-->
+                        <script>
+                            $('#id_music_file').on('change',function(e){
+                                var fileName = e.target.files[0].name;
+                                $(this).next('.custom-file-label').html(fileName);})
+
+                            $('#id_lyric_file').on('change',function(e){
+                                var fileName = e.target.files[0].name;
+                                $(this).next('.custom-file-label').html(fileName);})
+
+                            function music_submit(){
+                                var btn=document.getElementById("submitBtn");
+                                var list=document.getElementById("list_page");
+                                btn.disabled = true;
+                                btn.innerText = "Creating a lyric music video..."
+                                list.style.display='none';
+                                showLoader();
+                            }
+
+                            var width = 0;
+                            var id;
+
+                            function showLoader() {
+                                //$('body').append('<div style="text-align: center;" id="loadingDiv"><div class="loader">Loading...</div></div>');
+                                $('body').append('<div class="conatiner"">'+
+                                    '<div class="prog"><div class="progs" id="progressing">0%</div></div></div>');
+                                id = setInterval(frame, 1111); // 1.111초 마다 업데이트
+                            }
+
+                            function frame() {
+                                var ele = document.getElementById('progressing');
+                                if(width >= 100){
+                                    clearInterval(id);
+                                }else{
+                                    width++;
+                                    ele.style.width=width+"%";
+                                    ele.innerHTML=width+"%";
+                                }
+                            }
+
+                            function noEvent() {
+                                if (event.keyCode == 116) {
+                                    event.keyCode= 2;
+                                    return false;
+                                }
+                                else if(event.ctrlKey && (event.keyCode==78 || event.keyCode == 82)){
+                                    return false;
+                                }
+                            }
+                            document.onkeydown = noEvent;
+
+                        </script>
+                        <button type="submit" id="submitBtn" class="btn btn-outline-secondary" style="margin-top:1.7rem ;position: relative; display: inline-block; width: 40%; height: calc(1.5em + .75rem + 1rem);">
+                            Create a lyric music video</button>
+                    </form>
+                </div>
+            </section>
+
+            <section class="album py-5 bg-light" style="padding-top:0rem" id="list_page">
+                <div class="container my-2" style="margin-bottom:1rem">
+
+                    <div class="row justify-content-end my-3">
+                        <div class="col-4 input-group">
+                            <input type="text" class="form-control kw" value="{{ kw|default_if_none:'' }}">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="btn_search">search</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table" style="margin-bottom:3rem">
+                        <thead>
+                            <tr class="thead-dark" style="text-align:center">
+                                <th></th>
+                                <th>singer</th>
+                                <th>title</th>
+                            </tr>
+                        </thead>
+                    <!--db 읽어서 리스트 생성-->
+                        <tbody>
+                            {% if music_list %}
+                            {% for music in music_list %}
+                            <tr>
+                                <td>{{music_list.start_index|add:forloop.counter0 }}</td>
+                                <td style="text-align:center">{{ music.singer }}</td>
+                                <td style="text-align:center">
+                                    <a href="{% url 'viewzicQ:detail' music.id %}">{{ music.title }}</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            <tr>
+                                <td colspan="3">노래가 없습니다.</td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+
+                    <ul class="pagination justify-content-center">
+                        {% if music_list.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" data-page="{{music_list.previous_page_number}}" href="#list_page">이전</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" tabindex="-1" aria-disabled="true" href="">이전</a>
+                        </li>
+                        {% endif %}
+
+                    <!-- 페이지리스트 -->
+                        {% for page_number in music_list.paginator.page_range %}
+                        {% if page_number >= music_list.number|add:-5 and page_number <= music_list.number|add:5 %}
+                        {% if page_number == music_list.number %}
+                        <li class="page-item active" aria-current="page">
+                             <a class="page-link" data-page="{{ page_number }}" href="#list_page">{{ page_number }}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                             <a class="page-link" href="?page={{ page_number }}#list_page">{{ page_number }}</a>
+                        </li>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+
+                    <!-- 다음페이지 -->
+                        {% if music_list.has_next %}
+                        <li class="page-item">
+                              <a class="page-link" data-page="{{music_list.next_page_number }}" href="#list_page">다음</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                           <a class="page-link" tabindex="-1" aria-disabled="true" href="">다음</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+
+                    <form id="searchForm" method="get" action="{% url 'viewzicQ:home' %}">
+                        <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+                        <input type="hidden" id="page" name="page" value="{{ page }}">
+                    </form>
+                </div>
+            </section>
+        </main>
+        <script type='text/javascript'>
+            $(document).ready(function(){
+                $(".page-link").on('click', function() {
+                    $("#page").val($(this).data("page"));
+                    $("#searchForm").submit();});
+
+                $("#btn_search").on('click', function() {
+                    $("#kw").val($(".kw").val());
+                    $("#page").val(1);  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
+                    $("#searchForm").submit();});
+            });
+
+        </script>
+    {% endblock %}
+    </body>
+</html>
