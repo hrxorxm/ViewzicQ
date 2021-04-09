@@ -10,7 +10,7 @@
   * Apply different motion and font attributes
   * Use of emotion analysis techniques
 * Topic: **Automatic creation service of moving song lyrics according to music sentiment analysis**
-* Demo video : Youtube upload sooner
+* Demo video : https://youtu.be/RXvpbMduLdo
 
 ## Systems Design
 * Service Architecture
