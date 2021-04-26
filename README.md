@@ -1,5 +1,6 @@
-# ViewzicQ
+![Poster](https://user-images.githubusercontent.com/35680202/116068099-d0188200-a6c4-11eb-9cb5-48907579f099.png)
 
+# ViewzicQ
 ## Team
 * Team Name : ViewzicQ
 * Team Member : Youngseo Ji, Haram Lee
